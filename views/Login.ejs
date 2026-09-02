@@ -1,0 +1,36 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body class="auth-page">
+  <%- include("./partials/nav.ejs") %>
+  <% if (err.length > 0) { %>
+    <div class="alert alert-danger"><%= err %></div>
+  <% } %>
+
+  <main class="auth-shell">
+    <section class="form-box">
+      <div class="form-intro">
+        <p class="eyebrow">WELCOME BACK</p>
+        <h1>Log in to DineVista</h1>
+        <p>Pick up where you left off and keep your order moving.</p>
+      </div>
+      <form action="/Login" method="post" class="auth-form">
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="current-password" required>
+        </label>
+        <label class="remember">
+          <input type="checkbox" name="remember" value="Yes">
+          <span>Remember me</span>
+        </label>
+        <button type="submit" class="button button-primary full-width">Log in</button>
+        <p class="form-footer">Don't have an account? <a href="/SignUp">Create one</a></p>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

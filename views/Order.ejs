@@ -1,0 +1,59 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body class="app-page">
+  <%- include("./partials/links.ejs") %>
+
+  <main class="page-shell narrow-shell">
+    <section class="page-heading compact">
+      <div>
+        <p class="eyebrow">YOUR CART</p>
+        <h1>Order summary</h1>
+        <p>Adjust quantities before you confirm your order.</p>
+      </div>
+    </section>
+
+    <% if (Products.length > 0) { %>
+      <section class="order-list">
+        <% for (let i = 0; i < Products.length; i++) { %>
+          <article class="order-item">
+            <img src="<%= Products[i].image %>" alt="<%= Products[i].name %>" loading="lazy">
+            <div class="order-main">
+              <span class="dish-number">0<%= i + 1 %></span>
+              <h2><%= Products[i].name %></h2>
+              <p>$<%= Products[i].price.toFixed(2) %> each</p>
+              <form action="/User/Order" method="POST" class="quantity-actions">
+                <input type="hidden" name="Id" value="<%= Products[i].id %>">
+                <button type="submit" name="action" value="Remove" class="button button-secondary small-button">−</button>
+                <span>Qty <strong><%= Products[i].qty %></strong></span>
+                <button type="submit" name="action" value="Add" class="button button-secondary small-button">+</button>
+              </form>
+            </div>
+            <div class="order-total">
+              <span>Item total</span>
+              <strong>$<%= (Products[i].price * Products[i].qty).toFixed(2) %></strong>
+            </div>
+          </article>
+        <% } %>
+      </section>
+
+      <section class="summary-card">
+        <div>
+          <span>Total</span>
+          <strong>$<%= Number(totPrice).toFixed(2) %></strong>
+        </div>
+        <form action="/User/Confirm" method="POST">
+          <button type="submit" class="button button-primary">Proceed to confirmation</button>
+        </form>
+      </section>
+    <% } else { %>
+      <section class="empty-state">
+        <div class="empty-icon">⌁</div>
+        <h2>Your cart is empty</h2>
+        <p>Add a dish from the menu and it will appear here.</p>
+        <a class="button button-primary" href="/Menu">Browse the menu</a>
+      </section>
+    <% } %>
+  </main>
+</body>
+</html>

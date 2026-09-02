@@ -1,0 +1,85 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body class="app-page">
+  <%- include("./partials/links.ejs") %>
+
+  <main class="page-shell">
+    <% if (success.length > 0) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">DINEVISTA MENU</p>
+        <h1>Pick what sounds good.</h1>
+        <p>Browse comfort-food favorites and add anything you like to your cart.</p>
+      </div>
+      <span class="item-count"><%= foodItems.length %> items</span>
+    </section>
+
+    <% if (foodItems.length === 0) { %>
+      <section class="empty-state">
+        <h2>No dishes found</h2>
+        <p>Try a broader search term and browse the menu again.</p>
+        <a class="button button-secondary" href="/Menu">Show all dishes</a>
+      </section>
+    <% } else { %>
+      <section class="menu-list">
+        <% for (let i = 0; i < foodItems.length; i++) { %>
+          <article class="menu-item">
+            <img src="<%= foodItems[i].image %>" alt="<%= foodItems[i].name %>" loading="lazy">
+            <div class="menu-content">
+              <div>
+                <span class="dish-number">0<%= i + 1 %></span>
+                <h2><%= foodItems[i].name %></h2>
+                <p><%= foodItems[i].desc %></p>
+              </div>
+              <div class="menu-action">
+                <strong><%= foodItems[i].price %></strong>
+                <form class="cart-form" action="/Menu/Add-to-Cart" method="POST">
+                  <input type="hidden" name="foodId" value="<%= foodItems[i].id %>">
+                  <input type="hidden" name="foodName" value="<%= foodItems[i].name %>">
+                  <input type="hidden" name="foodPrice" value="<%= foodItems[i].price %>">
+                  <input type="hidden" name="foodImage" value="<%= foodItems[i].image %>">
+                  <button type="submit" class="button button-primary add-to-cart">Add to cart</button>
+                </form>
+              </div>
+            </div>
+          </article>
+        <% } %>
+      </section>
+    <% } %>
+  </main>
+
+  <div id="popup" role="status" aria-live="polite">Added to cart</div>
+  <script>
+    document.querySelectorAll('.cart-form').forEach((form) => {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const button = form.querySelector('button');
+        button.disabled = true;
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(form)),
+            credentials: 'same-origin'
+          });
+
+          if (!response.ok) throw new Error('Unable to add item.');
+
+          const popup = document.getElementById('popup');
+          popup.classList.add('show');
+          window.clearTimeout(window.__dineVistaPopupTimer);
+          window.__dineVistaPopupTimer = window.setTimeout(() => popup.classList.remove('show'), 2200);
+        } catch (error) {
+          window.location.href = '/Login';
+        } finally {
+          button.disabled = false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

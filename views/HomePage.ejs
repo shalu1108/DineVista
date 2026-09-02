@@ -1,0 +1,47 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body class="public-page">
+  <%- include("./partials/nav.ejs") %>
+
+  <main class="home-shell">
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <p class="eyebrow">WELCOME TO DINEVISTA</p>
+        <h1>Comfort food, served with a little more care.</h1>
+        <p class="hero-text">Explore a warm, approachable menu built around familiar favorites, fresh ingredients, and the joy of sharing a good meal.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/Login">Log in to order</a>
+          <a class="button button-secondary" href="/SignUp">Create an account</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <span class="hero-card-kicker">TODAY'S MOOD</span>
+        <strong>Gather &amp; enjoy.</strong>
+        <span>Fresh plates. Relaxed moments. No fuss.</span>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <article class="content-card">
+        <p class="eyebrow">OUR OFFERINGS</p>
+        <h2>Something for every table.</h2>
+        <p>From juicy burgers and crisp salads to comforting bowls, pizzas, sushi, and desserts, every dish is made to feel familiar, satisfying, and worth coming back for.</p>
+      </article>
+      <article class="content-card accent-card">
+        <p class="eyebrow">ABOUT DINEVISTA</p>
+        <h2>Food brings people together.</h2>
+        <p>We built DineVista around a simple idea: great food should feel welcoming. Choose your favorites, build your cart, and enjoy a smoother ordering experience from start to finish.</p>
+      </article>
+    </section>
+
+    <section class="home-cta">
+      <div>
+        <p class="eyebrow">READY TO BROWSE?</p>
+        <h2>Your next favorite dish might be one click away.</h2>
+      </div>
+      <a class="button button-light" href="/Menu">View the menu</a>
+    </section>
+  </main>
+</body>
+</html>

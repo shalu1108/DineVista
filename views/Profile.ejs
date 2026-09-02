@@ -1,0 +1,61 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body class="app-page">
+  <%- include("./partials/links.ejs") %>
+
+  <main class="page-shell">
+    <% if (success.length > 0) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    <% if (err.length > 0) { %>
+      <div class="alert alert-danger"><%= err %></div>
+    <% } %>
+
+    <section class="profile-card">
+      <div class="profile-avatar">DV</div>
+      <div>
+        <p class="eyebrow">YOUR PROFILE</p>
+        <h1><%= first_name %> <%= last_name %></h1>
+        <p><%= email %></p>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="section-title-row">
+        <div>
+          <p class="eyebrow">PAST ORDERS</p>
+          <h2>Order history</h2>
+        </div>
+        <span class="item-count"><%= p_orders.length %> orders</span>
+      </div>
+
+      <% if (p_orders.length === 0) { %>
+        <section class="empty-state compact-empty">
+          <h3>No orders yet</h3>
+          <p>Your completed orders will show up here.</p>
+          <a class="button button-secondary" href="/Menu">Explore the menu</a>
+        </section>
+      <% } else { %>
+        <% p_orders.slice().reverse().forEach((Order) => { %>
+          <article class="history-card">
+            <% const formatDate = new Date(Order.date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }); %>
+            <div class="history-header">
+              <span>Purchased on <%= formatDate %></span>
+              <strong>$<%= Number(Order.totalPrice).toFixed(2) %></strong>
+            </div>
+            <div class="history-items">
+              <% Order.items.forEach((product) => { %>
+                <div class="history-line">
+                  <span><%= product.name %> × <%= product.qty %></span>
+                  <span>$<%= (product.price * product.qty).toFixed(2) %></span>
+                </div>
+              <% }) %>
+            </div>
+          </article>
+        <% }) %>
+      <% } %>
+    </section>
+  </main>
+</body>
+</html>

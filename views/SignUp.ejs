@@ -1,0 +1,39 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body class="auth-page">
+  <%- include("./partials/nav.ejs") %>
+
+  <main class="auth-shell">
+    <section class="form-box">
+      <div class="form-intro">
+        <p class="eyebrow">JOIN DINEVISTA</p>
+        <h1>Create your account</h1>
+        <p>Save your details and make ordering your favorites easier.</p>
+      </div>
+      <form action="/SignUp" method="post" class="auth-form">
+        <div class="field-row">
+          <label class="field">
+            <span>First name</span>
+            <input type="text" name="first_name" autocomplete="given-name" required>
+          </label>
+          <label class="field">
+            <span>Last name</span>
+            <input type="text" name="last_name" autocomplete="family-name" required>
+          </label>
+        </div>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="new-password" required>
+        </label>
+        <button type="submit" class="button button-primary full-width">Sign up</button>
+        <p class="form-footer">Already have an account? <a href="/Login">Log in</a></p>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

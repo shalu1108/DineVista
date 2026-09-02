@@ -1,0 +1,60 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body class="app-page">
+  <nav class="site-nav simple-nav">
+    <div class="site-title"><a href="/">DineVista</a></div>
+    <a class="back-link" href="/User/Order">← Back to cart</a>
+  </nav>
+
+  <main class="page-shell narrow-shell">
+    <section class="page-heading compact">
+      <div>
+        <p class="eyebrow">LAST CHECK</p>
+        <h1>Confirm your order</h1>
+        <p>Review the items and total, then place the order.</p>
+      </div>
+    </section>
+
+    <section class="confirmation-card">
+      <div class="table-scroll">
+        <table class="order-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Net amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let i = 0; i < Products.length; i++) { let product = Products[i]; %>
+              <tr>
+                <td><%= i + 1 %></td>
+                <td><strong><%= product.name %></strong></td>
+                <td>$<%= product.price.toFixed(2) %></td>
+                <td><%= product.qty %></td>
+                <td>$<%= (product.price * product.qty).toFixed(2) %></td>
+              </tr>
+            <% } %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">Total</td>
+              <td>$<%= Number(totPrice).toFixed(2) %></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="confirm-actions">
+        <a href="/User/Order" class="button button-secondary">Go back</a>
+        <form action="/User/Confirmed" method="POST">
+          <button type="submit" class="button button-primary">Confirm order</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

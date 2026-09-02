@@ -1,0 +1,20 @@
+<nav class="site-nav menu-nav">
+  <div class="site-title">
+    <a href="/">DineVista</a>
+    <span class="brand-tag">Fresh from the kitchen</span>
+  </div>
+  <% var search = search || false; %>
+  <% if (search) { %>
+    <form class="search-bar" action="/Menu" method="POST" role="search">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input type="search" placeholder="Search the menu" id="search" name="search" autocomplete="off">
+      <button type="submit" class="search-submit">Search</button>
+    </form>
+  <% } %>
+</nav>
+<ul class="account-links">
+  <li><a href="/User/Profile">Profile</a></li>
+  <li><a href="/Menu">Menu</a></li>
+  <li><a href="/User/Order">Cart</a></li>
+  <li><a href="/Logout">Logout</a></li>
+</ul>
